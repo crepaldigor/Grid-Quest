@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid Quest — Aprenda CSS Grid jogando</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+  <section class="panel">
+    <header class="top">
+      <h1>Grid<span>Quest</span></h1>
+      <div class="nav">
+        <button id="prev" aria-label="Nível anterior">◀</button>
+        <button id="levelBtn"><span id="levelLabel">Nível 1 de 12</span> ▾</button>
+        <button id="next" aria-label="Próximo nível">▶</button>
+      </div>
+    </header>
+    <div id="levelMenu" class="menu hidden"></div>
+    <h2 id="title"></h2>
+    <div id="desc" class="desc"></div>
+    <div class="editor">
+      <div class="lines">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div>
+      <div class="code">
+        <pre id="before"></pre>
+        <textarea id="input" spellcheck="false" autocomplete="off"></textarea>
+        <pre>}</pre>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="check" class="primary">Verificar</button>
+      <button id="reset">Limpar progresso</button>
+    </div>
+    <p id="feedback" class="feedback"></p>
+  </section>
+  <section class="stage">
+    <div class="board-wrap">
+      <div id="target" class="board"></div>
+      <div id="user" class="board"></div>
+    </div>
+    <p class="hint">Os blocos coloridos devem cobrir as áreas tracejadas.</p>
+  </section>
+</main>
+<style id="levelStyle"></style>
+<script src="script.js"></script>
+</body>
+</html>
