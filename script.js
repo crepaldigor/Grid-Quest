@@ -41,6 +41,48 @@ const LEVELS=[
 ,{t:"Desafio final",d:"Use <code>grid-template</code> com linhas 1fr 2fr, colunas 2fr 1fr 1fr e <code>gap: 8px</code>.",sel:".board",n:4,sol:"grid-template: 1fr 2fr / 2fr 1fr 1fr;\ngap: 8px;"}
 
 ];
+const HINTS=[
+"A propriedade é <code>grid-column-start</code> e o valor é o número da coluna.",
+"Use <code>grid-column-start: 2</code> e um <code>grid-column-end</code> que caia na linha de grade 5.",
+"Linhas de grade negativas contam de trás: a penúltima é <code>-2</code>.",
+"Uma propriedade só resolve: <code>grid-column</code>, separando início e fim com /.",
+"Combine com <code>span</code>: <code>grid-column: 1 / span 3</code>.",
+"Existe a versão vertical: <code>grid-row-start</code>.",
+"Use <code>grid-row</code> e <code>grid-column</code> juntas.",
+"Em <code>grid-area</code> a ordem é linha-início / coluna-início / linha-fim / coluna-fim.",
+"Você edita o container agora: <code>grid-template-columns: 50% 50%</code>.",
+"<code>fr</code> divide o espaço livre na proporção que você escreve.",
+"Defina <code>grid-template-rows</code> e <code>grid-template-columns</code> juntas.",
+"O atalho é <code>grid-template: linhas / colunas</code> — e não esqueça do gap.",
+"Comece com <code>grid-row-start: 2</code>.",
+"<code>1 / -1</code> pega todas as trilhas de uma vez.",
+"<code>grid-row: 2 / span 3</code> resolve a parte vertical.",
+"O <code>span</code> também pode vir primeiro: <code>span 2 / 6</code>.",
+"Em <code>grid-area</code>, cubra as linhas 1 a 3 e todas as colunas.",
+"Você pode misturar <code>span</code> dentro do <code>grid-area</code>.",
+"Última linha é <code>grid-row: 5</code>, e todas as colunas.",
+"Com dois valores, <code>grid-area</code> define só a linha e a coluna de início.",
+"<code>repeat(3, 1fr)</code> cria três colunas iguais.",
+"O repeat repete padrões inteiros, não só valores únicos.",
+"Primeiro um <code>100px</code> fixo, depois <code>1fr</code> para o resto.",
+"Quatro colunas iguais e uma única linha.",
+"Uma coluna só, e as linhas com <code>repeat(4, 1fr)</code>.",
+"<code>minmax(50px, 1fr)</code> na primeira e <code>3fr</code> na segunda.",
+"Uma propriedade só resolve o espaço: <code>gap</code>.",
+"Existem <code>row-gap</code> e <code>column-gap</code> separados.",
+"<code>grid-auto-flow: column</code> muda a direção do fluxo.",
+"As linhas implícitas ganham tamanho com <code>grid-auto-rows</code>.",
+"Colunas de 80px + <code>justify-content: center</code>.",
+"Linhas de 80px + <code>align-content: end</code>.",
+"Três colunas de 60px + <code>justify-content: space-between</code>.",
+"<code>place-content</code> junta os dois eixos em um só.",
+"O vermelho é o <code>.c</code>: <code>order: -1</code> o coloca no início.",
+"O azul é o <code>.d</code>: da coluna 1 até o fim.",
+"O amarelo é o <code>.b</code>: linha 3, coluna 3, ocupando 2 colunas.",
+"<code>repeat(auto-fill, 100px)</code> preenche tudo o que couber.",
+"<code>2fr repeat(2, 1fr)</code> nas colunas resolve a parte difícil.",
+"Linhas <code>1fr 2fr</code>, colunas <code>2fr 1fr 1fr</code> e gap de 8px."
+];
 const KEY="gridquest-save";
 let save=JSON.parse(localStorage.getItem(KEY)||'{"level":0,"done":[],"code":{}}');
 let cur=save.level||0;
@@ -56,6 +98,7 @@ function load(i){
   $("before").textContent=L.sel===".board"?"#jardim {\n  display: grid;":L.sel==="#a"?"#bloco {":".item"+L.sel+" {";
   items($("target"),L.n);items($("user"),L.n);
   $("input").value=save.code[i]||"";$("feedback").textContent="";$("feedback").className="feedback";
+  $("hintBox").textContent="";$("hintBox").classList.add("hidden");
   apply();renderMenu();
 }
 function apply(){
@@ -88,5 +131,6 @@ $("check").onclick=check;
 $("prev").onclick=()=>cur>0&&load(cur-1);
 $("next").onclick=()=>cur<LEVELS.length-1&&load(cur+1);
 $("levelBtn").onclick=()=>$("levelMenu").classList.toggle("hidden");
+$("hint").onclick=()=>{const b=$("hintBox");b.innerHTML="💡 "+HINTS[cur];b.classList.remove("hidden")};
 $("reset").onclick=()=>{if(confirm("Apagar todo o progresso?")){save={level:0,done:[],code:{}};persist();load(0)}};
 load(cur);
